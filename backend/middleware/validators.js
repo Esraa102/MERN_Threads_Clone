@@ -4,7 +4,8 @@ export const validators = (validations) => {
   return async (req, res, next) => {
     for (let validation of validations) {
       const result = await validation.run(req);
-      if (!result.notEmpty()) {
+      console.log("result ===>", result);
+      if (result.errors.length > 0) {
         break;
       }
     }

@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/user.model.js";
 
 export const verfiyToken = (req, res, next) => {
-  const token = req.cookie.access_token;
+  console.log(req.cookie);
+  const token = req.cookies.access_token;
   if (!token) {
     res.status(401).json({
       status: "Error",
