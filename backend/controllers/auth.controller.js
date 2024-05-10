@@ -28,11 +28,12 @@ const registerUser = async (req, res, next) => {
         const { password: encryptedPass, ...rest } = newUser._doc;
 
         res
-          .cookies("access_token", accessToken, {
+          .status(201)
+          .cookie("access_token", accessToken, {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
+            sameSite: "strict",
           })
-          .status(201)
           .json({ status: "OK", userData: rest });
       }
     }
@@ -54,11 +55,12 @@ const logInUser = async (req, res, next) => {
         const accessToken = generateToken(user);
         const { password: encryptedPass, ...rest } = user._doc;
         res
-          .cookies("access_token", accessToken, {
+          .status(201)
+          .cookie("access_token", accessToken, {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
+            sameSite: "strict",
           })
-          .status(201)
           .json({ status: "OK", userData: rest });
       } else {
         return res
