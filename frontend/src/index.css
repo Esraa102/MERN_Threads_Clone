@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply flex items-center cursor-pointer justify-center p-2 hover:bg-darkColor transition rounded-full;
+  }
+}
