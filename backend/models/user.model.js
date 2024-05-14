@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
     },
     followers: [{ type: mongoose.Types.ObjectId, ref: "User" }],
     following: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    bio: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );
