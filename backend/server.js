@@ -5,6 +5,7 @@ import cors from "cors";
 import { authRouter } from "./routes/auth.route.js";
 import { connectToDB } from "./config/connectToDB.js";
 import cookieParser from "cookie-parser";
+import { userRouter } from "./routes/user.route.js";
 
 const app = express();
 const port = process.env.PORT || 5001;
@@ -23,6 +24,7 @@ app.use(
 
 //Routes
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/user", userRouter);
 
 app.listen(port, () => {
   console.log("Server Is Running on", port);
