@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { Flex, Image, Box, Text } from "@chakra-ui/react";
 import { BsThreeDots } from "react-icons/bs";
 import Actions from "./Actions";
-
+import { useState } from "react";
 const UserPost = ({ likes, replies, postImg, postTitle }) => {
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <Flex gap={2} className="my-10">
       <Flex
@@ -84,14 +85,14 @@ const UserPost = ({ likes, replies, postImg, postTitle }) => {
             />
           </Link>
         )}
-        <Actions size={24} />
+        <Actions size={24} isLiked={isLiked} setIsLiked={setIsLiked} />
         <Flex
           gap={2}
           fontSize={"medium"}
           alignItems={"center"}
           color={"gray.light"}
         >
-          <Text>{likes} likes</Text>
+          <Text>{likes + (isLiked ? 1 : 0)} likes</Text>
           <Box h={"1"} w={"1"} bg={"gray.light"} borderRadius={"full"}></Box>
           <Text>{replies} replies</Text>
         </Flex>

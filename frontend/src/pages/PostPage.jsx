@@ -1,8 +1,9 @@
 import { VStack, Flex, Image, Text, Box, Button } from "@chakra-ui/react";
 import { BsThreeDots } from "react-icons/bs";
 import { Actions, Comment } from "../components";
-
+import { useState } from "react";
 const PostPage = () => {
+  const [isLiked, setIsLiked] = useState(false);
   return (
     <VStack spacing={3} align="stretch" className="my-10">
       <Flex
@@ -43,14 +44,14 @@ const PostPage = () => {
         src="/assets/post1.png"
         alt="post-image"
       />
-      <Actions size={24} />
+      <Actions size={24} isLiked={isLiked} setIsLiked={setIsLiked} />
       <Flex
         gap={2}
         fontSize={"medium"}
         alignItems={"center"}
         color={"gray.light"}
       >
-        <Text>234 likes</Text>
+        <Text>{234 + (isLiked ? 1 : 0)} likes</Text>
         <Box h={"1"} w={"1"} bg={"gray.light"} borderRadius={"full"}></Box>
         <Text>1900 replies</Text>
       </Flex>
@@ -69,10 +70,20 @@ const PostPage = () => {
         </Text>
         <Button>Get</Button>
       </Flex>
-      <Comment />
-      <Comment />
-      <Comment />
-      <Comment />
+      <Comment
+        comment={"first comment"}
+        avatar={"https://bit.ly/dan-abramov"}
+        username="danabramov"
+        createdAt={"1d"}
+        likes={1240}
+      />
+      <Comment
+        comment={"second comment"}
+        avatar={"https://bit.ly/kent-c-dodds"}
+        username="KolaTioluwani"
+        createdAt={"23m"}
+        likes={300}
+      />
     </VStack>
   );
 };

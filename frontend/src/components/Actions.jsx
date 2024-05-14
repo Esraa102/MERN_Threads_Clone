@@ -1,11 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
 import { Flex, Box } from "@chakra-ui/react";
 import { FaRegHeart, FaRegComment, FaHeart } from "react-icons/fa";
 import { TiArrowForwardOutline } from "react-icons/ti";
 import { LuSend } from "react-icons/lu";
-const Actions = ({ size }) => {
-  const [isLiked, setIsLiked] = useState(false);
+const Actions = ({ size, isLiked, setIsLiked }) => {
   return (
     <Flex alignItems={"center"} className="mt-1" gap={2} flexWrap={"wrap"}>
       <Box className="btn" onClick={() => setIsLiked((prev) => !prev)}>
