@@ -7,3 +7,15 @@
     @apply flex items-center cursor-pointer justify-center p-2 hover:bg-darkColor transition rounded-full;
   }
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #1e1e1e;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #616161;
+  border-radius: 10px;
+}

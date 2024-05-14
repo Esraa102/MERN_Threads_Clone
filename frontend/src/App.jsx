@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <Container marginTop={"110px"} maxWidth={"620px"}>
+      <Container marginTop={"110px"} paddingX={"16px"} maxWidth={"620px"}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sign-up" element={<SignUp />} />

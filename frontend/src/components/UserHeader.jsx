@@ -31,11 +31,14 @@ const UserHeader = () => {
     <VStack spacing={8} align="stretch">
       <Flex
         w={"full"}
-        justifyContent={"space-between"}
+        justifyContent={{ base: "center", md: "space-between" }}
         gap={"20px"}
         flexWrap={"wrap"}
       >
-        <Flex direction={"column"}>
+        <Flex
+          direction={"column"}
+          alignItems={{ base: "center", md: "flex-start" }}
+        >
           <Text className="text-4xl font-bold my-3">Mark Zuckerberg</Text>
           <Flex gap={2}>
             <Text>zuckerberg</Text>
@@ -57,7 +60,7 @@ const UserHeader = () => {
           className="w-[130px] h-[130px] rounded-full object-cover"
         />
       </Flex>
-      <Text className="text-xl capitalize  font-semibold ">
+      <Text className="text-xl text-center md:text-start capitalize  font-semibold ">
         Co-founder,CEO of meta platform
       </Text>
       <Flex w={"full"} justifyContent={"space-between"}>
