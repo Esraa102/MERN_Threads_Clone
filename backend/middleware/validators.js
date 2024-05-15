@@ -28,7 +28,33 @@ export const logInValidation = [
 ];
 
 export const registerValidation = [
-  body("fullName").notEmpty().withMessage("Please Provide Your Full Name"),
-  body("username").notEmpty().withMessage("Please Provide Your Username"),
+  body("fullName")
+    .trim()
+    .notEmpty()
+    .withMessage("Please Provide Your Full Name"),
+  body("username")
+    .trim()
+    .notEmpty()
+    .withMessage("Please Provide Your Username"),
   ...logInValidation,
+];
+
+export const postValidation = [
+  body("content")
+    .trim()
+    .notEmpty()
+    .isLength({ min: 1, max: 3000 })
+    .withMessage(
+      "Post content should be at least 1 character and can't be greater than 3000 characters"
+    ),
+];
+
+export const commentValidation = [
+  body("text")
+    .trim()
+    .notEmpty()
+    .isLength({ min: 1, max: 500 })
+    .withMessage(
+      "A comment should be at least 1 character and can't be greater than 500 characters"
+    ),
 ];

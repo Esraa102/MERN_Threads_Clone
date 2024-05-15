@@ -55,7 +55,7 @@ const logInUser = async (req, res, next) => {
         const accessToken = generateToken(user);
         const { password: encryptedPass, ...rest } = user._doc;
         res
-          .status(201)
+          .status(200)
           .cookie("access_token", accessToken, {
             httpOnly: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,

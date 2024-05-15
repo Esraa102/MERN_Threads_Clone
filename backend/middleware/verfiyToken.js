@@ -16,11 +16,11 @@ export const verfiyToken = (req, res, next) => {
           .status(401)
           .json({ status: "Error", message: "Expired or invalid token" });
       } else {
-        const user = await User.findById(decoded._id);
+        const user = await User.findById(decoded._id).select("-password");
         if (!user) {
           res.status(404).json({ status: "Error", message: "User Not Found" });
         } else {
-          req.user = decoded;
+          req.user = user;
           next();
         }
       }
