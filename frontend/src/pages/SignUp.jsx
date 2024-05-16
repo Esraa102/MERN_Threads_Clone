@@ -1,4 +1,4 @@
-import { Flex, Stack, Text, useToast } from "@chakra-ui/react";
+import { Flex, Stack, Text } from "@chakra-ui/react";
 import { AuthForm } from "../components";
 import { useSetRecoilState } from "recoil";
 import authScreenAtom from "../atoms/authAtom";
@@ -6,9 +6,10 @@ import { signUpUser } from "../helpers/api-communicators";
 import { useNavigate } from "react-router-dom";
 import userAtom from "../atoms/userAtom";
 import { useState } from "react";
+import useToastMessage from "../hooks/useToastMessage";
 const SignUp = () => {
   const setAuthScreenState = useSetRecoilState(authScreenAtom);
-  const toast = useToast();
+  const message = useToastMessage();
   const setuserAtom = useSetRecoilState(userAtom);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -19,28 +20,13 @@ const SignUp = () => {
       if (data.status === "OK") {
         navigate("/");
         setuserAtom(data.userData);
-        toast({
-          title: "We've created your account for you.",
-          position: "top-left",
-          status: "success",
-          duration: 3000,
-        });
+        return message("We've created your account for you.", "success");
       } else {
-        toast({
-          title: data.message,
-          position: "top-left",
-          status: "error",
-          duration: 3000,
-        });
+        return message(data.message, "error");
       }
     } catch (error) {
       console.log(error);
-      toast({
-        title: error.message,
-        position: "top-left",
-        status: "error",
-        duration: 3000,
-      });
+      return message(error.message, "error");
     } finally {
       setIsLoading(false);
     }

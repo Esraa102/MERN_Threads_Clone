@@ -1,18 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { AuthPage, Home, PostPage, SignIn, SignUp, UserPage } from "./pages";
-import { Container, useToast } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
 import { Header, Loader } from "./components";
 import { useEffect, useState } from "react";
 import { checkAuth } from "./helpers/api-communicators";
 import { useRecoilState } from "recoil";
 import userAtom from "./atoms/userAtom";
+import useToastMessage from "./hooks/useToastMessage";
 
 function App() {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(userAtom);
   const [isLoading, setIsLoading] = useState(false);
-  const toast = useToast();
+  const message = useToastMessage();
   useEffect(() => {
     const checkStatus = async () => {
       try {
@@ -23,21 +24,11 @@ function App() {
           navigate("/");
         } else {
           setUser(null);
-          return toast({
-            title: data.message,
-            position: "top-left",
-            status: "error",
-            duration: 3000,
-          });
+          return message(data.message, "error");
         }
       } catch (error) {
         console.log(error);
-        return toast({
-          title: error.message,
-          position: "top-left",
-          status: "error",
-          duration: 3000,
-        });
+        return message(error.message, "error");
       } finally {
         setIsLoading(false);
       }

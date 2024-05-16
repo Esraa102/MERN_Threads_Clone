@@ -1,17 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { Flex, Stack, Text, useToast } from "@chakra-ui/react";
+import { Flex, Stack, Text } from "@chakra-ui/react";
 import { AuthForm } from "../components";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import authScreenAtom from "../atoms/authAtom";
 import { useNavigate } from "react-router-dom";
 import { logInUser } from "../helpers/api-communicators";
 import userAtom from "../atoms/userAtom";
+import useToastMessage from "../hooks/useToastMessage";
 
 const SignIn = () => {
   const setAuthScreenState = useSetRecoilState(authScreenAtom);
   const navigate = useNavigate();
-  const toast = useToast();
+  const message = useToastMessage();
   const [user, setUser] = useRecoilState(userAtom);
   const [isLoading, setIsLoading] = useState(false);
   const logIn = async (userInfo) => {
@@ -21,30 +22,14 @@ const SignIn = () => {
       if (data.status === "OK") {
         navigate("/");
         setUser(data.userData);
-        toast({
-          title: `Welcome back ${data.userData.fullName}`,
-          position: "top-left",
-          status: "success",
-          duration: 3000,
-        });
-        return;
+        return message(`Welcome back ${data.userData.fullName}`, "success");
       } else {
         console.log(data.message);
-        toast({
-          title: data.message,
-          position: "top-left",
-          status: "error",
-          duration: 3000,
-        });
+        return message(data.message, "error");
       }
     } catch (error) {
       console.log(error);
-      toast({
-        title: error.message,
-        position: "top-left",
-        status: "error",
-        duration: 3000,
-      });
+      return message(error.message, "error");
     } finally {
       setIsLoading(false);
     }

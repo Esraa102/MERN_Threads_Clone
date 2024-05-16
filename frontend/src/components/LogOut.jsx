@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useToast, Button, Spinner, useColorMode } from "@chakra-ui/react";
+import { Button, Spinner, useColorMode } from "@chakra-ui/react";
 import { IoMdLogOut } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 import { logOutUser } from "../helpers/api-communicators";
 import { useSetRecoilState } from "recoil";
 import userAtom from "../atoms/userAtom";
+import useToastMessage from "../hooks/useToastMessage";
 const LogOut = () => {
   const { colorMode } = useColorMode();
-  const toast = useToast();
+  const message = useToastMessage();
   const navigate = useNavigate();
   const setUser = useSetRecoilState(userAtom);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,21 +19,13 @@ const LogOut = () => {
       if (data.status === "OK") {
         setUser(null);
         navigate("/auth");
+        return message(data.message, "success");
+      } else {
+        return message(data.message, "error");
       }
-      toast({
-        title: data.message,
-        position: "top-left",
-        status: data.status === "OK" ? "success" : "error",
-        duration: 3000,
-      });
     } catch (error) {
       console.log(error);
-      toast({
-        title: error.message,
-        position: "top-left",
-        status: "error",
-        duration: 3000,
-      });
+      return message(error.message, "error");
     } finally {
       setIsLoading(false);
     }
