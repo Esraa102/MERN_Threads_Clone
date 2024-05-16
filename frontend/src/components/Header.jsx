@@ -1,48 +1,16 @@
-import {
-  Button,
-  Flex,
-  Image,
-  useColorMode,
-  useToast,
-  Text,
-} from "@chakra-ui/react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
-import { IoMdHome, IoMdLogOut } from "react-icons/io";
+import { Button, Flex, Image, useColorMode, Text } from "@chakra-ui/react";
+import { NavLink, Link } from "react-router-dom";
+import { IoMdHome } from "react-icons/io";
 import { IoCreate, IoMoonSharp } from "react-icons/io5";
 import { MdLightMode } from "react-icons/md";
-import { logOutUser } from "../helpers/api-communicators";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import userAtom from "../atoms/userAtom";
 import authScreenAtom from "../atoms/authAtom";
+import { LogOut } from ".";
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const setAuthScreenState = useSetRecoilState(authScreenAtom);
-  const toast = useToast();
-  const navigate = useNavigate();
-  const [user, setUser] = useRecoilState(userAtom);
-  const logOut = async () => {
-    try {
-      const data = await logOutUser();
-      if (data.status === "OK") {
-        setUser(null);
-        navigate("/auth");
-      }
-      toast({
-        title: data.message,
-        position: "top-left",
-        status: data.status === "OK" ? "success" : "error",
-        duration: 3000,
-      });
-    } catch (error) {
-      console.log(error);
-      toast({
-        title: error.message,
-        position: "top-left",
-        status: "error",
-        duration: 3000,
-      });
-    }
-  };
+  const user = useRecoilValue(userAtom);
   return (
     <Flex
       className="w-full backdrop-blur"
@@ -81,9 +49,7 @@ const Header = () => {
                 <IoCreate size={24} />
               </Button>
             </NavLink>
-            <Button onClick={() => logOut()}>
-              <IoMdLogOut size={24} />
-            </Button>
+            <LogOut />
             <Button onClick={toggleColorMode}>
               {colorMode === "dark" ? (
                 <MdLightMode size={24} />
