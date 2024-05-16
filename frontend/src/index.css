@@ -19,3 +19,54 @@
   background-color: #616161;
   border-radius: 10px;
 }
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 25px;
+  height: 50px;
+  display: grid;
+
+  background: linear-gradient(currentColor 0 0) top/100% 2px,
+    radial-gradient(
+        farthest-side at top,
+        #0000 calc(100% - 2px),
+        currentColor calc(100% - 1px),
+        #0000
+      )
+      top,
+    linear-gradient(currentColor 0 0) bottom/100% 2px,
+    radial-gradient(
+        farthest-side at bottom,
+        #0000 calc(100% - 2px),
+        currentColor calc(100% - 1px),
+        #0000
+      )
+      bottom;
+  background-size: 100% 1px, 100% 50%;
+  background-repeat: no-repeat;
+  -webkit-animation: l18 4s infinite linear;
+  animation: l18 4s infinite linear;
+}
+.loader::before,
+.loader::after {
+  content: "";
+  grid-area: 1/1;
+  background: inherit;
+  border: inherit;
+  -webkit-animation: inherit;
+  animation: inherit;
+}
+.loader::after {
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+}
+@-webkit-keyframes l18 {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+@keyframes l18 {
+  100% {
+    transform: rotate(1turn);
+  }
+}

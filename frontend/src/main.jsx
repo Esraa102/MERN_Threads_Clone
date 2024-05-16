@@ -5,6 +5,9 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import { ChakraProvider, extendTheme, ColorModeScript } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RecoilRoot } from "recoil";
+const queryClient = new QueryClient();
 const styles = {
   global: (props) => ({
     body: {
@@ -29,10 +32,14 @@ const theme = extendTheme({ config, styles, colors });
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
-      <ChakraProvider theme={theme}>
-        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <App />
-      </ChakraProvider>
+      <RecoilRoot>
+        <ChakraProvider theme={theme}>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <QueryClientProvider client={queryClient}>
+            <App />
+          </QueryClientProvider>
+        </ChakraProvider>
+      </RecoilRoot>
     </BrowserRouter>
   </React.StrictMode>
 );

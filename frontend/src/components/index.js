@@ -3,4 +3,6 @@ import Actions from "./Actions";
 import UserHeader from "./UserHeader";
 import UserPost from "./UserPost";
 import Comment from "./Comment";
-export { Actions, Header, UserHeader, UserPost, Comment };
+import AuthForm from "./AuthForm";
+import Loader from "./Loader";
+export { Actions, Header, UserHeader, UserPost, Comment, AuthForm, Loader };

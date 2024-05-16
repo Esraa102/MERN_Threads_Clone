@@ -76,7 +76,7 @@ const logInUser = async (req, res, next) => {
 
 const checkAuth = (req, res, next) => {
   if (req.user) {
-    res.status(200).json({ status: "Error", userData: req.user });
+    res.status(200).json({ status: "OK", userData: req.user });
   } else {
     res.status(401).json({
       status: "Error",
